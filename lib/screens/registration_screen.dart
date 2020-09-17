@@ -1,19 +1,20 @@
 import 'package:e_shopping/components/button_widget.dart';
 import 'package:e_shopping/components/textfield_widget.dart';
 import 'package:e_shopping/screens/home_screen.dart';
-import 'package:e_shopping/screens/registration_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const String id = 'LoginScreen';
+class RegistrationScreen extends StatefulWidget {
+  static const String id = 'RegistrationScreen';
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final fullNameController = TextEditingController();
+  final emailController = TextEditingController();
   final mobileNoController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +32,19 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 20,
           ),
           TextFieldWidget(
+            hintText: 'Full Name',
+            controller: fullNameController,
+            icon: Icons.person,
+          ),
+          TextFieldWidget(
+            hintText: 'E-mail',
+            keyBoardType: TextInputType.emailAddress,
+            controller: emailController,
+            icon: Icons.alternate_email,
+          ),
+          TextFieldWidget(
             hintText: 'Mobile Number',
-            keyBoardType: TextInputType.number,
+            keyBoardType: TextInputType.phone,
             controller: mobileNoController,
             icon: Icons.phone,
           ),
@@ -42,43 +54,20 @@ class _LoginScreenState extends State<LoginScreen> {
             isPassword: true,
             icon: Icons.lock,
           ),
+          TextFieldWidget(
+            hintText: 'Confirm Password',
+            controller: confirmPasswordController,
+            isPassword: true,
+            icon: Icons.lock,
+          ),
           ButtonWidget(
-            buttonName: 'Login',
+            buttonName: 'Registration',
             onClicked: () {
               Navigator.pushReplacementNamed(
                 context,
                 HomeScreen.id,
               );
             },
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                RegistrationScreen.id,
-              );
-            },
-            child: Text(
-              'New User? Create an Account',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-          SizedBox(
-            height: 25,
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushReplacementNamed(
-                context,
-                HomeScreen.id,
-              );
-            },
-            child: Text(
-              'Skip >>',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
-            ),
           ),
         ],
       ),
