@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_shopping/components/category_list_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ],
-        //Todo: Do we have to add this in all page?
+        //Todo: Extract widget
       ),
       body: Column(
         children: [
@@ -66,6 +67,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               items: imgList,
+            ),
+          ),
+          Expanded(
+            child: GridView.count(
+              padding: EdgeInsets.all(10),
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.9,
+              crossAxisSpacing: 10,
+              crossAxisCount: 3,
+              children: [
+                CategoryList(),
+                CategoryList(),
+                CategoryList(),
+                CategoryList(),
+                CategoryList(),
+                CategoryList(),
+              ],
             ),
           ),
         ],
