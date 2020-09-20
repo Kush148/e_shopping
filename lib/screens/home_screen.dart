@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
+  int selectedIndex = 0;
   var imgList = [
     Image.asset(
       'images/eshoplogo.png',
@@ -25,10 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
       'images/eshoplogo.png',
     ),
   ];
+  final List navigationList = [
+    HomeScreen.id,
+  ];
 
-  void onTabtapped(int index) {
+  void onTabTapped(int index) {
     setState(() {
-      currentIndex = index;
+      selectedIndex = index;
+      print(selectedIndex);
     });
   }
 
@@ -89,10 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
+        currentIndex: selectedIndex,
         selectedItemColor: Colors.blueAccent,
         unselectedItemColor: Colors.lightBlueAccent,
-        onTap: onTabtapped,
         items: [
           BottomNavigationBarItem(
             icon: Icon(
@@ -114,11 +117,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.more_vert,
+              Icons.person_outline,
             ),
-            title: Text('More'),
+            title: Text('Account'),
           ),
         ],
+        onTap: onTabTapped,
       ),
     );
   }
