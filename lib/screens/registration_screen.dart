@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:e_shopping/components/button_widget.dart';
 import 'package:e_shopping/components/textfield_widget.dart';
-import 'package:e_shopping/screens/home_screen.dart';
+import 'package:e_shopping/screens/login_screen.dart';
+import 'package:e_shopping/services.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'RegistrationScreen';
@@ -15,6 +19,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final mobileNoController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final NetworkServices networkServices = new NetworkServices();
+
+  void userRegistration(
+      {String name, String email, String mobileNo, String password}) async {
+    String result = await networkServices.userRegistration(
+        name: name, email: email, mobileNo: mobileNo, password: password);
+    final rawData = jsonDecode(result);
+    final responseCode = rawData['result'];
+    final String userID = rawData['id'];
+    final String userName = rawData['name'];
+    final String userAddress = rawData['address'];
+
+    if (responseCode == 200) {
+      mobileNoController.clear();
+      passwordController.clear();
+      Navigator.pushReplacementNamed(
+        context,
+        LoginScreen.id,
+        //arguments: {userID, userName, userAddress},
+      );
+    } else {
+      Fluttertoast.showToast(
+          msg: "Registration Failed",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +98,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ButtonWidget(
             buttonName: 'Registration',
             onClicked: () {
-              Navigator.pushReplacementNamed(
-                context,
-                HomeScreen.id,
-              );
+              userRegistration(
+                  name: fullNameController.text,
+                  email: emailController.text,
+                  mobileNo: mobileNoController.text,
+                  password: passwordController.text);
             },
           ),
         ],

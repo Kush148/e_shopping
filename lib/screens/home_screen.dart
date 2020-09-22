@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_shopping/components/category_list_widget.dart';
+import 'package:e_shopping/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
+  NetworkServices networkServices = NetworkServices();
   var imgList = [
     Image.asset(
       'images/eshoplogo.png',
@@ -34,6 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
       selectedIndex = index;
       print(selectedIndex);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
