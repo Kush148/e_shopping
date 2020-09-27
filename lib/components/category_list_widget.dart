@@ -1,40 +1,49 @@
 import 'dart:convert';
 
-import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/constants.dart';
 import 'package:e_shopping/models/products.dart';
-import 'package:e_shopping/screens/orders_screen.dart';
-import 'package:e_shopping/screens/product_list_screen.dart';
+import 'package:e_shopping/utils/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/services.dart';
 import 'package:flutter/material.dart';
 
 class CategoryList extends StatefulWidget {
-  final name;
-  final img;
-  Function onTouch;
-
-  CategoryList({@required this.name, @required this.img, this.onTouch});
-
   @override
   _CategoryListState createState() => _CategoryListState();
 }
 
 class _CategoryListState extends State<CategoryList> {
-  String name;
+  String name = 'category';
   String img;
   Function onTouch;
   final NetworkServices networkServices = NetworkServices();
   List productListByCat = [];
+  List categories = [
+    'category1',
+    'category2',
+    'category3',
+    'category4',
+    'category5',
+    'category6',
+  ];
+
+  List categoriesImg = [
+    Constants.category1Path,
+    Constants.category2Path,
+    Constants.category3Path,
+    Constants.category4Path,
+    Constants.category5Path,
+    Constants.category6Path,
+  ];
 
   @override
   void initState() {
-    name = widget.name;
-    img = widget.img;
-    onTouch = widget.onTouch;
     super.initState();
   }
 
-  void onClick({@required String category}) async {
-    String response = await networkServices.getNewProducts();
+  void onClick(index) async {
+    print("onClick");
+    String response = await networkServices.getProductsByCategory(
+        category: categories[index]);
     var jsonData = jsonDecode(response);
     List productList = jsonData['data'];
 
@@ -48,21 +57,25 @@ class _CategoryListState extends State<CategoryList> {
     final orientation = MediaQuery.of(context).orientation;
     return GridView.builder(
       itemCount: 6,
+      shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: (orientation == Orientation.landscape) ? 2 : 3),
       itemBuilder: (BuildContext context, int index) {
-        return new GestureDetector(
-          onTap: onTouch,
-          //ToDo : check how to retrive data from pushNamed
-          //  Navigator.pushNamed(context, ProductListScreen.id, arguments: name);
+        return GestureDetector(
+          onTap: () {
+            onClick(index);
+          },
           child: Column(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  img,
-                  height: 100,
-                  fit: BoxFit.fill,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    categoriesImg[index],
+                    height: 100,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
               SizedBox(
@@ -70,7 +83,7 @@ class _CategoryListState extends State<CategoryList> {
               ),
               Text(
                 //ToDo: wrap text to fit layoutbox
-                name,
+                categories[index],
                 style: TextStyle(
                   fontSize: 16,
                   letterSpacing: 1,

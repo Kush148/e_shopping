@@ -4,10 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_shopping/components/category_list_widget.dart';
 import 'package:e_shopping/components/product_list_view.dart';
 import 'package:e_shopping/models/products.dart';
-import 'package:e_shopping/screens/product_list_screen.dart';
 import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/services.dart';
 import 'package:e_shopping/utils/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 List<Products> newProductlist = [];
@@ -72,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     networkServices.getProductsByCategory(category: 'category1');
-    getPopularProducts();
-    getNewProducts();
+    // getPopularProducts();
+    // getNewProducts();
     super.initState();
   }
 
@@ -115,22 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 items: imgList,
               ),
             ),
-            GridView.count(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.all(10),
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.9,
-              crossAxisSpacing: 10,
-              crossAxisCount: 3,
-              children: [
-                CategoryList(
-                  name: 'Smart Phones',
-                  img: Constants.category1Path,
-                  onTouch: () {},
-                ),
-              ],
-            ),
+            CategoryList(),
             Text('Popular Products'),
             ProductListView(
               list: popProductlist,
