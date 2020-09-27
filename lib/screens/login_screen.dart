@@ -3,7 +3,7 @@ import 'package:e_shopping/components/button_widget.dart';
 import 'package:e_shopping/components/textfield_widget.dart';
 import 'package:e_shopping/screens/home_screen.dart';
 import 'package:e_shopping/screens/registration_screen.dart';
-import 'package:e_shopping/services.dart';
+import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

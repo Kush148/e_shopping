@@ -1,3 +1,5 @@
+import 'package:e_shopping/models/products.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 
 const eshoppingURL = "http://192.168.2.20/eshopping/";
@@ -24,6 +26,34 @@ class NetworkServices {
       "address": "123",
     });
     print(response.body);
+    return response.body;
+  }
+
+  Future getPopularProducts() async {
+    String popularProductsUrl = eshoppingURL + "popularProducts.php";
+
+    Response response = await post(popularProductsUrl);
+    print(response.body);
+    return response.body;
+  }
+
+  Future getNewProducts() async {
+    String newProductsUrl = eshoppingURL + "newProducts.php";
+
+    Response response = await post(newProductsUrl);
+    // print(response.body);
+
+    return response.body;
+  }
+
+  Future getProductsByCategory({@required String category}) async {
+    String newProductsUrl = eshoppingURL + "productsByCategory.php";
+
+    Response response = await post(newProductsUrl, body: {
+      "category": 'category1',
+    });
+    print(response.body);
+
     return response.body;
   }
 }
