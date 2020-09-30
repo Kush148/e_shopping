@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:e_shopping/components/product_list_view.dart';
-import 'package:e_shopping/models/products.dart';
 import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/services.dart';
 import 'package:flutter/material.dart';
 
@@ -16,28 +13,14 @@ class ProductListScreen extends StatefulWidget {
 class _ProductListScreenState extends State<ProductListScreen> {
   NetworkServices networkServices = NetworkServices();
 
-  void getNewProducts() async {
-    String response = await networkServices.getNewProducts();
-    var newProducts = jsonDecode(response);
-    List productList = newProducts['data'];
-    print(productList);
-    setState(() {
-      newProductList =
-          productList.map((val) => Products.fromJson(val)).toList();
-    });
-  }
-
-  @override
-  void initState() {
-    getNewProducts();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final List rcvdData = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("name"),
+        //TODO get name from recieved data
         actions: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -51,7 +34,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       body: SingleChildScrollView(
         //color: Colors.red,
         child: ProductListView(
-          list: newProductList,
+          list: rcvdData,
         ),
       ),
     );

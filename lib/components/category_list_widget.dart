@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:e_shopping/models/products.dart';
+import 'package:e_shopping/screens/product_list_screen.dart';
 import 'package:e_shopping/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/services.dart';
@@ -41,15 +42,16 @@ class _CategoryListState extends State<CategoryList> {
   }
 
   void onClick(index) async {
-    print("onClick");
     String response = await networkServices.getProductsByCategory(
         category: categories[index]);
     var jsonData = jsonDecode(response);
     List productList = jsonData['data'];
-
-    setState(() {
-      productListByCat = productList.map((e) => Products.fromJson(e)).toList();
-    });
+    productListByCat = productList.map((e) => Products.fromJson(e)).toList();
+    Navigator.pushNamed(
+      context,
+      ProductListScreen.id,
+      arguments: productListByCat,
+    );
   }
 
   @override

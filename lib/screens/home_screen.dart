@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_shopping/components/app_bar.dart';
 import 'package:e_shopping/components/category_list_widget.dart';
 import 'package:e_shopping/components/product_list_view.dart';
 import 'package:e_shopping/models/products.dart';
+import 'package:e_shopping/screens/my_account_screen.dart';
+import 'package:e_shopping/screens/orders_screen.dart';
+import 'package:e_shopping/screens/search_screen.dart';
 import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/services.dart';
-import 'package:e_shopping/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 List<Products> newProductlist = [];
@@ -19,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedIndex = 0;
   NetworkServices networkServices = NetworkServices();
   var imgList = [
     Image.asset(
@@ -38,14 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final List navigationList = [
     HomeScreen.id,
   ];
-
-  void onTabTapped(int index) {
-    networkServices.getProductsByCategory(category: 'category1');
-    setState(() {
-      selectedIndex = index;
-      print(selectedIndex);
-    });
-  }
 
   void getPopularProducts() async {
     String response = await networkServices.getPopularProducts();
@@ -69,27 +63,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    networkServices.getProductsByCategory(category: 'category1');
-    // getPopularProducts();
-    // getNewProducts();
+    getPopularProducts();
+    getNewProducts();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('E-Shopping'),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: Icon(
-              Icons.shopping_cart,
-            ),
-          ),
-        ],
-        //Todo: Extract widget
-      ),
+      appBar: appBar('E-shopping', Icons.shopping_cart),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -124,38 +106,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedIndex,
-        selectedItemColor: Colors.blueAccent,
-        unselectedItemColor: Colors.lightBlueAccent,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-            ),
-            title: Text('Search'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.receipt,
-            ),
-            title: Text('Orders'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_outline,
-            ),
-            title: Text('Account'),
-          ),
-        ],
-        onTap: onTabTapped,
       ),
     );
   }

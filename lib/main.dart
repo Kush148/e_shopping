@@ -1,3 +1,4 @@
+import 'package:e_shopping/screens/bottom_navigation_screen.dart';
 import 'package:e_shopping/screens/home_screen.dart';
 import 'package:e_shopping/screens/login_screen.dart';
 import 'package:e_shopping/screens/orders_screen.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         SplashScreen.id: (context) => SplashScreen(),
         LoginScreen.id: (context) => LoginScreen(),
+        BottomNavigationScreen.id: (context) => BottomNavigationScreen(),
         HomeScreen.id: (context) => HomeScreen(),
         ProductListScreen.id: (context) => ProductListScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),

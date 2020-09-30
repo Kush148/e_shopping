@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:e_shopping/components/button_widget.dart';
 import 'package:e_shopping/components/textfield_widget.dart';
+import 'package:e_shopping/screens/bottom_navigation_screen.dart';
 import 'package:e_shopping/screens/home_screen.dart';
 import 'package:e_shopping/screens/registration_screen.dart';
 import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/services.dart';
@@ -110,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: () {
               Navigator.pushReplacementNamed(
                 context,
-                HomeScreen.id,
+                BottomNavigationScreen.id,
               );
             },
             child: Text(
