@@ -2,6 +2,7 @@ import 'package:e_shopping/screens/bottom_navigation_screen.dart';
 import 'package:e_shopping/screens/home_screen.dart';
 import 'package:e_shopping/screens/login_screen.dart';
 import 'package:e_shopping/screens/orders_screen.dart';
+import 'package:e_shopping/screens/product_details_screen.dart';
 import 'package:e_shopping/screens/product_list_screen.dart';
 import 'package:e_shopping/screens/registration_screen.dart';
 import 'package:e_shopping/screens/splash_screen.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         BottomNavigationScreen.id: (context) => BottomNavigationScreen(),
         HomeScreen.id: (context) => HomeScreen(),
         ProductListScreen.id: (context) => ProductListScreen(),
+        ProductDetailsScreen.id: (context) => ProductDetailsScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         OrdersScreen.id: (context) => OrdersScreen(),
       },

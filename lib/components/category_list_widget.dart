@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:e_shopping/models/products.dart';
 import 'package:e_shopping/screens/product_list_screen.dart';
 import 'package:e_shopping/utils/constants.dart';
+import 'package:e_shopping/utils/services.dart';
 import 'package:flutter/cupertino.dart';
-import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/services.dart';
 import 'package:flutter/material.dart';
 
 class CategoryList extends StatefulWidget {
@@ -19,21 +18,21 @@ class _CategoryListState extends State<CategoryList> {
   final NetworkServices networkServices = NetworkServices();
   List productListByCat = [];
   List categories = [
-    'category1',
-    'category2',
-    'category3',
-    'category4',
-    'category5',
-    'category6',
+    'Vegetables',
+    'Fruits',
+    'Grains',
+    'Dairy',
+    'Frozen',
+    'Others',
   ];
 
   List categoriesImg = [
-    Constants.category1Path,
-    Constants.category2Path,
-    Constants.category3Path,
-    Constants.category4Path,
-    Constants.category5Path,
-    Constants.category6Path,
+    categoryImg1,
+    categoryImg2,
+    categoryImg3,
+    categoryImg4,
+    categoryImg5,
+    categoryImg6,
   ];
 
   @override
@@ -60,6 +59,7 @@ class _CategoryListState extends State<CategoryList> {
     return GridView.builder(
       itemCount: 6,
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: (orientation == Orientation.landscape) ? 2 : 3),
       itemBuilder: (BuildContext context, int index) {

@@ -1,18 +1,18 @@
 import 'dart:convert';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_shopping/components/app_bar.dart';
 import 'package:e_shopping/components/category_list_widget.dart';
 import 'package:e_shopping/components/product_list_view.dart';
 import 'package:e_shopping/models/products.dart';
-import 'package:e_shopping/screens/my_account_screen.dart';
-import 'package:e_shopping/screens/orders_screen.dart';
-import 'package:e_shopping/screens/search_screen.dart';
-import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/services.dart';
+import 'package:e_shopping/utils/constants.dart';
+import 'package:e_shopping/utils/services.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 List<Products> newProductlist = [];
 List<Products> popProductlist = [];
+
+//TODO carousel slider images,category images
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'HomeScreen';
@@ -23,6 +23,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   NetworkServices networkServices = NetworkServices();
+
+  getuserData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    print('getUserData');
+    print(preferences.getString('UserName') ?? '');
+  }
+
   var imgList = [
     Image.asset(
       'images/eshoplogo.png',
@@ -63,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    getuserData();
     getPopularProducts();
     getNewProducts();
     super.initState();
@@ -74,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: appBar('E-shopping', Icons.shopping_cart),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               padding: EdgeInsets.all(20),
@@ -95,12 +104,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 items: imgList,
               ),
             ),
+            SizedBox(
+              height: 10,
+            ),
             CategoryList(),
-            Text('Popular Products'),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              'Popular Products',
+              style: kTitleTextStyle,
+            ),
             ProductListView(
               list: popProductlist,
             ),
-            Text('New Products'),
+            Text(
+              'New Products',
+              style: kTitleTextStyle,
+            ),
             ProductListView(
               list: newProductlist,
             ),

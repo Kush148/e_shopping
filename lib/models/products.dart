@@ -13,8 +13,13 @@ class Products {
 
   factory Products.fromJson(Map<String, dynamic> data) {
     return Products(
+      id: data['id'],
       name: data['name'],
       img: data['img'],
+      category: data['category'],
+      price: data['price'],
+      description: data['description'],
+      ratings: data['ratings'],
     );
   }
 

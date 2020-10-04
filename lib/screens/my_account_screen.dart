@@ -18,9 +18,12 @@ class _MyAccountState extends State<MyAccountScreen> {
           shrinkWrap: true,
           children: [
             listTile(
-                title: 'Profile',
-                subtitle: 'Name, Address, Contact Details..',
-                iconData: Icons.person_outline)
+              title: 'Profile',
+              subtitle: 'Name, Address, Contact Details..',
+              iconData: Icons.person_outline,
+            ),
+            listTile(
+                title: 'Logout', subtitle: '', iconData: Icons.person_outline)
           ],
         ),
       ),

@@ -4,10 +4,11 @@ import 'package:e_shopping/components/textfield_widget.dart';
 import 'package:e_shopping/screens/bottom_navigation_screen.dart';
 import 'package:e_shopping/screens/home_screen.dart';
 import 'package:e_shopping/screens/registration_screen.dart';
-import 'file:///D:/AndroidStudioProjects/e_shopping/lib/utils/services.dart';
+import 'package:e_shopping/utils/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'LoginScreen';
@@ -30,9 +31,13 @@ class _LoginScreenState extends State<LoginScreen> {
     final String userName = rawData['name'];
     final String userAddress = rawData['address'];
 
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('UserName', userName);
+
     if (responseCode == 200) {
       mobileNoController.clear();
       passwordController.clear();
+
       Navigator.pushReplacementNamed(
         context,
         HomeScreen.id,
